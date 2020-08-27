@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>POST设置请求头</title>
+    <style>
+        #result {
+            width: 200px;
+            height: 200px;
+            border: aqua 1px solid;
+        }
+    </style>
+</head>
+<body>
+<div id="result"></div>
+<script>
+    const result = document.getElementById('result');
+    result.addEventListener('mouseover', function () {
+        const xhr = new XMLHttpRequest();
+
+        xhr.open('POST', 'http://127.0.0.1:8000/server');
+        // 设置请求头
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        // 自定义请求头  会在前端出错 需要在服务端中设置响应头
+        xhr.setRequestHeader('name', 'Samantha Carter');
+        //xhr.send('a:100&b:200&c:300');
+        // xhr.send('a=100&b=200&c=300');
+        // xhr.send('a/100&b/200&c/300');
+        xhr.send('123456789 ');
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    result.innerHTML = xhr.response;
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

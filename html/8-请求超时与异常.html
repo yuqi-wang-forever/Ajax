@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>请求超时与异常</title>
+    <style>
+        #result {
+            width: 100px;
+            height: 100px;
+            border: orange 1px solid;
+        }
+    </style>
+</head>
+<body>
+<button>点击发送请求</button>
+<div id="result"></div>
+<script>
+    const btn = document.getElementsByTagName('button')[0];
+    const result = document.querySelector('#result');
+
+    btn.addEventListener('click', function () {
+        const xhr = new XMLHttpRequest();
+        // 超时设计 2s后没有效果，则取消请求
+        xhr.timeout = 2000;
+        // 超时回调
+        xhr.ontimeout = function () {
+            alert('请求超时，请稍后再试');
+        }
+        // 网络异常回调
+        xhr.onerror = function () {
+            alert('网络异常，请稍后重试');
+        }
+
+        xhr.open('get', 'http://127.0.0.1:8000/delay');
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    result.innerHTML = xhr.response;
+                }
+            }
+        }
+    });
+
+
+</script>
+</body>
+</html>

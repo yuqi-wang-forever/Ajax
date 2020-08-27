@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>重复</title>
+</head>
+<body>
+<button>请求发送</button>
+
+<script>
+    const btns = document.querySelectorAll('button');
+
+    let xhr = null
+    let isSending = false; //是否正在发送Ajax请求
+    //第一次点击 isSending为false
+    btns[0].onclick = function () {
+        // 判断标识变量
+        if (isSending) xhr.abort;       // 不会进入判断（不会取消请求）
+        xhr = new XMLHttpRequest();     // 创建xhr对象
+        isSending = true;               //修改标识为true 之后顺利执行
+        xhr.open('get', 'http://127.0.0.1:8000/abort');
+        // 当发送请求时 点击取消
+        xhr.send();
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status >= 200 && xhr.status < 300) {   // 如果执行到这一行之前，标识依旧为true 则会重新开始一次请求，会进入第18行取消请求，以重新开始一个新的请求
+                    isSending = false;       // 执行到此处表示执行完毕 修改标识为false，则就会像第一次一样顺序执行
+                }
+            }
+        }
+
+    }
+
+</script>
+</body>
+</html>

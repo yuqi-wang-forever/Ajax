@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>请求取消</title>
+</head>
+<body>
+<button>请求发送</button>
+<button>请求取消</button>
+<script>
+    const btns = document.querySelectorAll('button');
+
+    let xhr = null
+    btns[0].onclick = function () {
+        xhr = new XMLHttpRequest();
+        xhr.open('get', 'http://127.0.0.1:8000/abort');
+        // 当发送请求时 点击取消
+        xhr.send();
+
+    }
+    // [btn1] 和btn[0]共用一个XMLHttpRequest 对象，当发送请求没有响应时点击了取消，是一个xhr对象则会取消Ajax请求
+    btns[1].onclick = function () {
+        xhr.abort();
+    }
+</script>
+</body>
+</html>

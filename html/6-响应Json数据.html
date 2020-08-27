@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Json数据</title>
+</head>
+<body>
+<div id='result' style='border: 1px solid orange;width: 200px;height: 200px'></div>
+<script>
+    const result = document.getElementById('result');
+    // 绑定键盘按下事件
+    window.onkeydown = function () {
+        const xhr = new XMLHttpRequest();
+
+        // 设置接受数据格式 更简单
+        xhr.responseType = 'json';
+        xhr.open('get', 'http://127.0.0.1:8000/Json-server');
+
+        xhr.send();
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    // 解析成为string类型
+                    // xhr.response 依旧是json格式
+                    // let data = JSON.parse(xhr.response);
+                    // result.innerHTML = data.name;
+                    result.innerHTML = xhr.response.name;
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>

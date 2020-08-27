@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fetch请求</title>
+</head>
+<body>
+<button>Ajax</button>
+<script>
+    const btn = document.getElementsByTagName('button')[0];
+
+    btn.addEventListener('click', function () {
+        fetch(
+            // url
+            'http://localhost:8000/fetch',
+            // 其他配置 可选
+            {
+                // 请求方法类型
+                method: 'post',
+                headers: {
+                    name: 'Thor'
+                },
+                // 请求体
+                body: 'username=admin&password=admin'
+            }
+        ).then(result => {
+            // console.log(result);
+            //return result.text();
+            return result.json();
+        }).then(result => {
+            console.log(result);
+        })
+    });
+</script>
+</body>
+</html>
