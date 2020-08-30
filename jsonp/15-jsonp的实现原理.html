@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>jsonp的实现原理</title>
-    <script src="./app.js"></script>
+
     <style>
         #result {
             width: 100px;
@@ -14,8 +14,14 @@
 </head>
 <body>
 <script>
-
+    function handle(data) {
+        // 获取result
+        const result = document.getElementById('result');
+        result.innerHTML = data.name;
+    };
 </script>
 <div id="result"></div>
+<!-- <script src="http://127.0.0.1:5501/Ajax/jsonp/app.js"></script> -->
+<script src="http:127.0.0.1:8000/jsonp"></script>
 </body>
 </html>

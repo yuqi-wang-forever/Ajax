@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>jsonp实践</title>
+</head>
+
+<body>
+<input id="name" name="name" type="text">
+<p id="result"></p>
+
+<script>
+    const name = document.getElementById('name');
+    const p = document.getElementsByTagName('p');
+
+    // 声明handle函数
+    function handle(data) {
+        input.style.border = 'solid 1px red';
+        p.innerHTML = data.msg;
+    };
+    name.onblur = function () {
+        // 获取用户输入值
+        let name = this.value;
+        // 向服务器端发送请求 检测用户是否存在
+        // 1.创建script标签
+        const script = document.createElement('script');
+        // 2.设置标签的src属性
+        script.src = 'http://localhost:8000/check';
+        // 3.将script插入到文档中
+        document.body.appendChild(script);
+    }
+</script>
+</body>
+
+</html>

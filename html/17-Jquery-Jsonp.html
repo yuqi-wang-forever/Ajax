@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>jquery-jsonp</title>
+</head>
+<button>点击发送jsonp请求</button>
+<div id="result">
+</div>
+
+<style>
+    #result {
+        width: 200px;
+        height: 200px;
+        border: 1px orange solid;
+    }
+</style>
+<script crossorigin="anonymous" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    const btn = document.getElementsByTagName('button')[0];
+    btn.onclick = function () {
+        $.getJSON('http://localhost:7000/jquery-jsonp?callback?', function (data) {
+            // console.log(data);
+            $('#result').html(
+                `名称：${data.name}
+                地区：${data.city}
+                `
+            )
+        })
+    }
+</script>
+<body>
+</body>
+
+</html>

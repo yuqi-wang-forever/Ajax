@@ -121,6 +121,54 @@ app.all('/fetch', (request, response) => {
     response.send(str);
 
 });
+// 响应一个页面
+app.get('/home', (request, response) => {
+    response.sendfile(__dirname + '/index.html');
+});
+
+app.get('/data', (request, response) => {
+    response.send('用户数据')
+});
+app.all('/jsonp', (request, response) => {
+    const data = {
+        name: 'Jack'
+    }
+    let str = JSON.stringify(data);
+    response.end(`handle(${str})`);
+});
+
+app.all('/check', (request, response) => {
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    const data = {
+        exits: 1,
+        msg: '用户名已存在'
+    };
+    let str = JSON.stringify(data);
+    response.send(str);
+});
+
+app.all('/jquery-jsonp', (request, response) => {
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    const data = {
+        name: '尚硅谷',
+        city: ['北京', '天津', '深圳']
+    };
+    // 将数据转化为字符串
+    let str = JSON.stringify(data);
+    // 接收callback参数
+    let cb = request.query.callback;
+    response.end(`${cb}(${str})`);
+    //response.end(str);
+});
+// cors
+app.get('/cors', (request, response) => {
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Headers', '*');
+    response.setHeader('Access-Control-Allow-Method', '*');
+    response.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8000');
+
+    response.send('hello cors');
+})
 // 4.监听端口启动服务
 app.listen(8000, () => {
     console.log("服务已启动，8000端口监听中------");
